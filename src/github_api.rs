@@ -1,0 +1,48 @@
+use std::error::Error;
+
+use reqwest::header::{HeaderMap, HeaderValue, AUTHORIZATION, USER_AGENT};
+use serde::Deserialize;
+
+#[derive(Debug, Deserialize)]
+pub struct RepoStats {
+    pub full_name: String,
+    pub description: String,
+    pub stargazers_count: u64,
+    pub forks_count: u64,
+    pub open_issues_count: u64,
+}
+
+pub async fn fetch_stats(
+    owner: &str,
+    repo: &str,
+    token: &str,
+) -> Result<RepoStats, Box<dyn Error>> {
+    let url = format!("https://api.github.com/repos/{}/{}", owner, repo);
+
+    let mut headers = HeaderMap::new();
+
+    headers.insert(
+        "Accept",
+        HeaderValue::from_static("application/vnd.github+json"),
+    );
+    headers.insert("User-Agent", HeaderValue::from_static("gitspect-cli"));
+
+    if !token.is_empty() {
+        headers.insert(
+            "Authorization",
+            HeaderValue::from_str(&format!("Bearer {}", token))?,
+        );
+    }
+
+    let client = reqwest::Client::new();
+    let resp = client
+        .get(&url)
+        .headers(headers)
+        .send()
+        .await?
+        .error_for_status()?;
+
+    let repo_stats = resp.json::<RepoStats>().await?;
+
+    Ok(repo_stats)
+}
