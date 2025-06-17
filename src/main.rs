@@ -3,7 +3,7 @@ mod utils;
 mod subcommands;
 mod commands;
 
-use clap::{Parser, Subcommand};
+use clap::{Parser};
 use dotenv::dotenv;
 use std::{env, io::{self, Write}};
 use crate::subcommands::Commands;
@@ -59,6 +59,9 @@ async fn main() {
                     Commands::Stats { owner, repo_name } => {
                         commands::stats::get_stats(&owner, &repo_name, &github_token).await;
                     },
+                    Commands::ReadMe { owner, repo_name } => {
+                        commands::readme::get_readme(&owner, &repo_name, &github_token).await;
+                    }
                 }
             }
             Err(e) => {

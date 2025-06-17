@@ -18,6 +18,16 @@ pub struct RepoStats {
     pub pushed_at: String,
 }
 
+#[derive(Debug, Deserialize)]
+pub struct GithubFile {
+    pub name: String,
+    pub path: String,
+    pub sha: String,
+    pub size: u64,
+    pub url: String,
+    pub content: String,
+    pub encoding: String,
+}
 
 pub async fn fetch_stats(
     owner: &str,
@@ -52,4 +62,39 @@ pub async fn fetch_stats(
     let repo_stats = resp.json::<RepoStats>().await?;
 
     Ok(repo_stats)
+}
+
+pub async fn fetch_readme(
+    owner: &str,
+    repo: &str,
+    token: &str,
+) -> Result<GithubFile, Box<dyn Error>> {
+    let url = format!("https://api.github.com/repos/{}/{}/readme", owner, repo);
+
+    let mut headers = HeaderMap::new();
+
+    headers.insert(
+        "Accept",
+        HeaderValue::from_static("application/vnd.github+json"),
+    );
+    headers.insert("User-Agent", HeaderValue::from_static("gitspect-cli"));
+
+    if !token.is_empty() {
+        headers.insert(
+            "Authorization",
+            HeaderValue::from_str(&format!("Bearer {}", token))?,
+        );
+    }
+
+    let client = reqwest::Client::new();
+    let resp = client
+        .get(&url)
+        .headers(headers)
+        .send()
+        .await?
+        .error_for_status()?;
+
+    let repo_file = resp.json::<GithubFile>().await?;
+
+    Ok(repo_file)
 }
