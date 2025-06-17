@@ -7,6 +7,21 @@ use dotenv::dotenv;
 use std::{env, io::{self, Write}};
 use crate::commands::Commands;
 
+const BANNER: &str = r#"
+           ███   █████                                         █████   
+          ░░░   ░░███                                         ░░███    
+  ███████ ████  ███████    █████  ████████   ██████   ██████  ███████  
+ ███░░███░░███ ░░░███░    ███░░  ░░███░░███ ███░░███ ███░░███░░░███░   
+░███ ░███ ░███   ░███    ░░█████  ░███ ░███░███████ ░███ ░░░   ░███    
+░███ ░███ ░███   ░███ ███ ░░░░███ ░███ ░███░███░░░  ░███  ███  ░███ ███
+░░███████ █████  ░░█████  ██████  ░███████ ░░██████ ░░██████   ░░█████ 
+ ░░░░░███░░░░░    ░░░░░  ░░░░░░   ░███░░░   ░░░░░░   ░░░░░░     ░░░░░  
+ ███ ░███                         ░███                                 
+░░██████                          █████                                
+ ░░░░░░                          ░░░░░                                 
+"#;
+
+
 #[derive(Parser)]
 #[command(name = "gitspect")]
 #[command(about = "CLI tool to analyze GitHub repository stats", long_about = None)]
@@ -19,6 +34,8 @@ struct Cli {
 async fn main() {
     dotenv().ok();
     let github_token = env::var("GITHUB_TOKEN").unwrap_or_default();
+
+    println!("{}", BANNER);
 
     loop {
         print!("gitspect> ");
@@ -37,7 +54,7 @@ async fn main() {
 
         match Cli::try_parse_from(args){
             Ok(cli) => {
-                match cli.command {
+                match cli.command { 
                     Commands::Stats { owner, repo_name } => {
                         println!("Fetching stats for repository {}/{}...", owner, repo_name);
 
@@ -45,7 +62,7 @@ async fn main() {
 
                         let response = utils::format_stats_struct(&stats);
                         print!("{}", response);
-                    }
+                    },
                 }
             }
             Err(e) => {

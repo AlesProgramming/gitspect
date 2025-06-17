@@ -6,7 +6,7 @@ pub fn format_stats_struct(stats: &RepoStats) -> String {
          Description: {}\n\
          Stars: {}\n\
          Forks: {}\n\
-         Open Issues: {}",
+         Open Issues: {}\n",
         stats.full_name,
         stats.description,
         stats.stargazers_count,

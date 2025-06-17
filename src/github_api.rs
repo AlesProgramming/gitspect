@@ -1,6 +1,6 @@
 use std::error::Error;
 
-use reqwest::header::{HeaderMap, HeaderValue, AUTHORIZATION, USER_AGENT};
+use reqwest::header::{HeaderMap, HeaderValue};
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
