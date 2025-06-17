@@ -1,11 +1,12 @@
 mod github_api;
 mod utils;
+mod subcommands;
 mod commands;
 
 use clap::{Parser, Subcommand};
 use dotenv::dotenv;
 use std::{env, io::{self, Write}};
-use crate::commands::Commands;
+use crate::subcommands::Commands;
 
 const BANNER: &str = r#"
            ███   █████                                         █████   
@@ -56,12 +57,7 @@ async fn main() {
             Ok(cli) => {
                 match cli.command { 
                     Commands::Stats { owner, repo_name } => {
-                        println!("Fetching stats for repository {}/{}...", owner, repo_name);
-
-                        let stats = github_api::fetch_stats(&owner, &repo_name, &github_token).await.unwrap();
-
-                        let response = utils::format_stats_struct(&stats);
-                        print!("{}", response);
+                        commands::stats::get_stats(&owner, &repo_name, &github_token).await;
                     },
                 }
             }
