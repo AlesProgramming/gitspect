@@ -31,7 +31,7 @@ const BANNER: &str = r#"
 "#;
 
 #[derive(Parser)]
-#[command(name = "gitspect")]
+#[command(name = "gitspect", disable_help_subcommand = true)]
 #[command(about = "CLI tool to analyze GitHub repository stats", long_about = None)]
 #[command(after_help = "Type 'quit' or 'exit' to leave the CLI.")]
 struct Cli {
@@ -93,6 +93,9 @@ async fn main() {
                 Commands::Clear {} => {
                     clearscreen::clear().unwrap();
                     print_banner();
+                }
+                Commands::Help {  } => {
+                    commands::help::print_custom_help();
                 }
             },
             Err(e) => {

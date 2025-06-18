@@ -22,8 +22,8 @@ pub async fn get_branches(
                     branch_to_open, owner, repo_name
                 );
 
-                let branch_to_branch_to_open = branches.iter().find(|branch| branch.name == *branch_to_open);
-                match branch_to_branch_to_open {
+                let branch_to_open = branches.iter().find(|branch| branch.name == *branch_to_open);
+                match branch_to_open {
                     Some(branch) => {
                         let _ = open::that(format!(
                             "https://github.com/{}/{}/tree/{}",

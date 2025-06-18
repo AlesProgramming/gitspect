@@ -3,13 +3,22 @@ use clap::Subcommand;
 #[derive(Subcommand, Clone)]
 pub enum Commands {
     #[clap(aliases = &["statistics", "stat"])]
-    Stats { owner: String, repo_name: String },
+    Stats {
+        owner: String,
+        repo_name: String,
+    },
 
     #[clap(aliases = &["readme", "rm"])]
-    ReadMe { owner: String, repo_name: String },
+    ReadMe {
+        owner: String,
+        repo_name: String,
+    },
 
-    #[clap(aliases = &["language"])]
-    Lang { owner: String, repo_name: String },
+    #[clap(aliases = &["language", "languages"])]
+    Lang {
+        owner: String,
+        repo_name: String,
+    },
 
     #[clap(aliases = &["branch", "br"])]
     Branches {
@@ -25,4 +34,6 @@ pub enum Commands {
 
     #[clap(aliases = &["cls"])]
     Clear {},
+
+    Help {},
 }
