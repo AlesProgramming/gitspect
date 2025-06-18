@@ -41,7 +41,8 @@ async fn main() {
     println!("{}", BANNER);
 
     loop {
-        print!("gitspect> ");
+        let prompt= "gitspect> ".white();
+        print!("{}", prompt);
         io::stdout().flush().unwrap();
 
         let mut input = String::new();
