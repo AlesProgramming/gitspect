@@ -62,6 +62,9 @@ async fn main() {
                     Commands::ReadMe { owner, repo_name } => {
                         commands::readme::get_readme(&owner, &repo_name, &github_token).await;
                     }
+                    Commands::Lang { owner, repo_name } => {
+                        commands::lang::get_langs(&owner, &repo_name, &github_token).await;
+                    }
                 }
             }
             Err(e) => {

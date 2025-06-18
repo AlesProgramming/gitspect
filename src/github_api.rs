@@ -1,4 +1,4 @@
-use std::error::Error;
+use std::{collections::HashMap, error::Error};
 
 use reqwest::header::{HeaderMap, HeaderValue};
 use serde::Deserialize;
@@ -97,4 +97,35 @@ pub async fn fetch_readme(
     let repo_file = resp.json::<GithubFile>().await?;
 
     Ok(repo_file)
+}
+
+pub async fn get_langs(owner: &str, repo: &str, token: &str) -> Result<HashMap<String, u32>, Box<dyn Error>> {
+    let url = format!("https://api.github.com/repos/{}/{}/languages", owner, repo);
+
+    let mut headers = HeaderMap::new();
+
+    headers.insert(
+        "Accept",
+        HeaderValue::from_static("application/vnd.github+json"),
+    );
+    headers.insert("User-Agent", HeaderValue::from_static("gitspect-cli"));
+
+    if !token.is_empty() {
+        headers.insert(
+            "Authorization",
+            HeaderValue::from_str(&format!("Bearer {}", token))?,
+        );
+    }
+
+    let client = reqwest::Client::new();
+    let resp = client
+        .get(&url)
+        .headers(headers)
+        .send()
+        .await?
+        .error_for_status()?;
+
+    let langs: HashMap<String, u32> = resp.json::<>().await?;
+
+    Ok(langs)
 }

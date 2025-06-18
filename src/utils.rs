@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 use crate::github_api::{GithubFile, RepoStats};
 use base64::{engine::general_purpose::STANDARD, Engine as _};
 use colored::*;
@@ -52,6 +54,32 @@ pub fn parse_github_file_to_readme_text(file: &GithubFile) -> String {
                 Err(e) => format!("Failed to decode base64: {}", e),
             }
         }
-        _ => file.content.clone()
+        _ => file.content.clone(),
     }
+}
+
+pub fn get_percentages_from_lang_hashmap(langs: &HashMap<String, u32>) -> String {
+    let keys: Vec<&String> = langs.keys().collect();
+    let values: Vec<&u32> = langs.values().collect();
+    let total_value: u32 = langs.values().sum();
+
+    let mut updated_hashmap: HashMap<String, f32> = HashMap::new();
+
+    for k in 0..keys.len() {
+        updated_hashmap.insert(
+            keys[k].to_string(),
+            (values[k].clone() as f32 / total_value as f32),
+        );
+    }
+
+    let mut sorted_order: Vec<(&String, &f32)> = updated_hashmap.iter().collect();
+    sorted_order.sort_by(|a, b| b.1.partial_cmp(a.1).unwrap());
+
+    let mut output = "\n".to_owned();
+
+    for (lang, percent) in &sorted_order {
+        output.push_str(&(format!("{}: {:.5}%", lang.cyan(), *percent * 100.0) + &format!(" [{} bytes] \n", langs[*lang])));
+    }
+
+    output
 }
