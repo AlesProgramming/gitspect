@@ -6,7 +6,9 @@ pub async fn get_branches(owner: &str, repo_name: &str, github_token: &str) {
         owner, repo_name
     );
 
-    match github_api::get_branches(owner, repo_name, github_token).await {
+    let client = github_api::GitHubClient::new(Some(github_token.to_string()));
+
+    match client.get_branches(owner, repo_name).await {
         Ok(branches) => {
             let text = utils::get_info_from_branches(&branches);
             println!("{}", text);
