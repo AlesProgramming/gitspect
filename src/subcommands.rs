@@ -5,4 +5,5 @@ pub enum Commands {
     Stats { owner: String, repo_name: String },
     ReadMe { owner: String, repo_name: String},
     Lang {owner: String, repo_name: String},
+    Branches {owner: String, repo_name: String}
 }

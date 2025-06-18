@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::github_api::{GithubFile, RepoStats};
+use crate::github_api::{Branch, GithubFile, RepoStats};
 use base64::{engine::general_purpose::STANDARD, Engine as _};
 use colored::*;
 
@@ -81,5 +81,16 @@ pub fn get_percentages_from_lang_hashmap(langs: &HashMap<String, u32>) -> String
         output.push_str(&(format!("{}: {:.5}%", lang.cyan(), *percent * 100.0) + &format!(" [{} bytes] \n", langs[*lang])));
     }
 
+    output
+}
+
+pub fn get_info_from_branches(branches: &Vec<Branch>) -> String {
+    let mut output = "\n".to_owned();
+
+    output.push_str(&format!("Branches ({}) \n", branches.len()));
+    for branch in branches {
+        output.push_str(&format!(" -> {:15} (commit: {}, protected {}) \n", branch.name.white(), branch.commit.sha.bright_green(), (branch.protected.to_string()).red()));
+    }
+    
     output
 }

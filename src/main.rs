@@ -68,6 +68,9 @@ async fn main() {
                     Commands::Lang { owner, repo_name } => {
                         commands::lang::get_langs(&owner, &repo_name, &github_token).await;
                     }
+                    Commands::Branches { owner, repo_name } => {
+                        commands::branches::get_branches(&owner, &repo_name, &github_token).await;
+                    }
                 }
             }
             Err(e) => {
