@@ -47,7 +47,7 @@ async fn main() {
     print_banner();
 
     loop {
-        let prompt = "gitspect> ".white();
+        let prompt = "gitspect> ".bold().white();
         print!("{}", prompt);
         io::stdout().flush().unwrap();
 
@@ -78,6 +78,7 @@ async fn main() {
                     repo_name,
                     per_page,
                     page,
+                    open,
                 } => {
                     commands::branches::get_branches(
                         &owner,
@@ -85,6 +86,7 @@ async fn main() {
                         &github_token,
                         &per_page,
                         &page,
+                        &open,
                     )
                     .await;
                 }
