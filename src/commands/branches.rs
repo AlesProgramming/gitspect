@@ -1,7 +1,5 @@
-use std::fmt::format;
-
 use crate::{
-    github_api::{self, Branch},
+    github_api::{self},
     utils,
 };
 use open;
