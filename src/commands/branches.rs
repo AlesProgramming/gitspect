@@ -1,14 +1,14 @@
 use crate::{github_api, utils};
 
-pub async fn get_branches(owner: &str, repo_name: &str, github_token: &str) {
+pub async fn get_branches(owner: &str, repo_name: &str, github_token: &str, per_page: &i32, page: &i32) {
     println!(
-        "Fetching branches for repository {}/{}...",
-        owner, repo_name
+        "Fetching {} branches on page {} for repository {}/{}...",
+        per_page, page, owner, repo_name
     );
 
     let client = github_api::GitHubClient::new(Some(github_token.to_string()));
 
-    match client.get_branches(owner, repo_name).await {
+    match client.get_branches(owner, repo_name, per_page, page).await {
         Ok(branches) => {
             let text = utils::get_info_from_branches(&branches);
             println!("{}", text);

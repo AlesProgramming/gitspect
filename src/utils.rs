@@ -89,7 +89,7 @@ pub fn get_info_from_branches(branches: &Vec<Branch>) -> String {
 
     output.push_str(&format!("Branches ({}) \n", branches.len()));
     for branch in branches {
-        output.push_str(&format!(" -> {:15} (commit: {}, protected {}) \n", branch.name.white(), branch.commit.sha.bright_green(), (branch.protected.to_string()).red()));
+        output.push_str(&format!(" -> {:15} (commit: {}, protected: {}) \n", branch.name.white(), branch.commit.sha.bright_green(), (branch.protected.to_string()).red()));
     }
     
     output

@@ -1,13 +1,17 @@
-mod github_api;
-mod utils;
-mod subcommands;
 mod commands;
+mod github_api;
+mod subcommands;
+mod utils;
 
-use clap::{Parser};
-use dotenv::dotenv;
-use std::{env, io::{self, Write}};
-use colored::*;
 use crate::subcommands::Commands;
+use clap::Parser;
+use colored::*;
+use dotenv::dotenv;
+use clearscreen;
+use std::{
+    env,
+    io::{self, Write},
+};
 
 const BANNER: &str = r#"
            ███   █████                                         █████   
@@ -21,8 +25,10 @@ const BANNER: &str = r#"
  ███ ░███                         ░███                                 
 ░░██████                          █████                                
  ░░░░░░                          ░░░░░                                 
-"#;
 
+
+
+"#;
 
 #[derive(Parser)]
 #[command(name = "gitspect")]
@@ -38,10 +44,10 @@ async fn main() {
     dotenv().ok();
     let github_token = env::var("GITHUB_TOKEN").unwrap_or_default();
 
-    println!("{}", BANNER);
+    print_banner();
 
     loop {
-        let prompt= "gitspect> ".white();
+        let prompt = "gitspect> ".white();
         print!("{}", prompt);
         io::stdout().flush().unwrap();
 
@@ -56,23 +62,37 @@ async fn main() {
         let mut args = vec!["gitspect"];
         args.extend(input.split_whitespace());
 
-        match Cli::try_parse_from(args){
-            Ok(cli) => {
-                match cli.command { 
-                    Commands::Stats { owner, repo_name } => {
-                        commands::stats::get_stats(&owner, &repo_name, &github_token).await;
-                    },
-                    Commands::ReadMe { owner, repo_name } => {
-                        commands::readme::get_readme(&owner, &repo_name, &github_token).await;
-                    }
-                    Commands::Lang { owner, repo_name } => {
-                        commands::lang::get_langs(&owner, &repo_name, &github_token).await;
-                    }
-                    Commands::Branches { owner, repo_name } => {
-                        commands::branches::get_branches(&owner, &repo_name, &github_token).await;
-                    }
+        match Cli::try_parse_from(args) {
+            Ok(cli) => match cli.command {
+                Commands::Stats { owner, repo_name } => {
+                    commands::stats::get_stats(&owner, &repo_name, &github_token).await;
                 }
-            }
+                Commands::ReadMe { owner, repo_name } => {
+                    commands::readme::get_readme(&owner, &repo_name, &github_token).await;
+                }
+                Commands::Lang { owner, repo_name } => {
+                    commands::lang::get_langs(&owner, &repo_name, &github_token).await;
+                }
+                Commands::Branches {
+                    owner,
+                    repo_name,
+                    per_page,
+                    page,
+                } => {
+                    commands::branches::get_branches(
+                        &owner,
+                        &repo_name,
+                        &github_token,
+                        &per_page,
+                        &page,
+                    )
+                    .await;
+                }
+                Commands::Clear {} => {
+                    clearscreen::clear().unwrap();
+                    print_banner();
+                }
+            },
             Err(e) => {
                 println!("Error: {}", e);
             }
@@ -81,4 +101,8 @@ async fn main() {
 
     let farewell_text = "'Till next time.".bold().white();
     println!("\n {} \n", farewell_text);
+}
+
+fn print_banner(){
+    println!("{}", BANNER);
 }

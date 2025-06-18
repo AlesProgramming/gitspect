@@ -119,8 +119,13 @@ impl GitHubClient {
         &self,
         owner: &str,
         repo: &str,
+        per_page: &i32,
+        page: &i32,
     ) -> Result<Vec<Branch>, Box<dyn Error>> {
-        let url = format!("https://api.github.com/repos/{}/{}/branches", owner, repo);
+        let url = format!(
+            "https://api.github.com/repos/{}/{}/branches?per_page={}&page={}",
+            owner, repo, per_page, page
+        );
         self.get_json(&url).await
     }
 }
