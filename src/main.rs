@@ -6,6 +6,7 @@ mod commands;
 use clap::{Parser};
 use dotenv::dotenv;
 use std::{env, io::{self, Write}};
+use colored::*;
 use crate::subcommands::Commands;
 
 const BANNER: &str = r#"
@@ -26,6 +27,7 @@ const BANNER: &str = r#"
 #[derive(Parser)]
 #[command(name = "gitspect")]
 #[command(about = "CLI tool to analyze GitHub repository stats", long_about = None)]
+#[command(after_help = "Type 'quit' or 'exit' to leave the CLI.")]
 struct Cli {
     #[command(subcommand)]
     command: Commands,
@@ -73,5 +75,6 @@ async fn main() {
         }
     }
 
-    println!("'Till next time.");
+    let farewell_text = "'Till next time.".bold().white();
+    println!("\n {} \n", farewell_text);
 }

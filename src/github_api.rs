@@ -19,6 +19,7 @@ pub struct RepoStats {
 }
 
 #[derive(Debug, Deserialize)]
+#[allow(unused)]
 pub struct GithubFile {
     pub name: String,
     pub path: String,

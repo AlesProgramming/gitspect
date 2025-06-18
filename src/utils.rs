@@ -68,7 +68,7 @@ pub fn get_percentages_from_lang_hashmap(langs: &HashMap<String, u32>) -> String
     for k in 0..keys.len() {
         updated_hashmap.insert(
             keys[k].to_string(),
-            (values[k].clone() as f32 / total_value as f32),
+            values[k].clone() as f32 / total_value as f32,
         );
     }
 
