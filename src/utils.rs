@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 
-use crate::github_api::{Branch, CommitInfo, GithubFile, RepoStats};
+use crate::schemas::*;
+
 use base64::{engine::general_purpose::STANDARD, Engine as _};
 use colored::*;
 

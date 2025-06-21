@@ -2,6 +2,7 @@ mod commands;
 mod github_api;
 mod subcommands;
 mod utils;
+mod schemas;
 
 use crate::subcommands::Commands;
 use clap::Parser;
