@@ -18,7 +18,8 @@ A command-line tool to fetch and display GitHub repository data like branches, s
 
 ## Features
 
-- **branches**: List all branches of a repository + info 
+- **branches**: List all branches of a repository + info
+- **commits**: List all commits of a branch + info
 - **stats**: Show repository statistics
 - **languages**: Display programming languages used in the repository  
 - **help**: Show usage instructions and available commands
