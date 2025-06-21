@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::github_api::{Branch, GithubFile, RepoStats};
+use crate::github_api::{Branch, CommitInfo, GithubFile, RepoStats};
 use base64::{engine::general_purpose::STANDARD, Engine as _};
 use colored::*;
 
@@ -78,7 +78,10 @@ pub fn get_percentages_from_lang_hashmap(langs: &HashMap<String, u32>) -> String
     let mut output = "\n".to_owned();
 
     for (lang, percent) in &sorted_order {
-        output.push_str(&(format!("{}: {:.5}%", lang.cyan(), *percent * 100.0) + &format!(" [{} bytes] \n", langs[*lang])));
+        output.push_str(
+            &(format!("{}: {:.5}%", lang.cyan(), *percent * 100.0)
+                + &format!(" [{} bytes] \n", langs[*lang])),
+        );
     }
 
     output
@@ -89,8 +92,39 @@ pub fn get_info_from_branches(branches: &Vec<Branch>) -> String {
 
     output.push_str(&format!("Branches ({}) \n", branches.len()));
     for branch in branches {
-        output.push_str(&format!(" -> {:15} (commit: {}, protected: {}) \n\t url: {} \n", branch.name.white(), branch.commit.sha.bright_green(), (branch.protected.to_string()).red(), branch.commit.url));
+        output.push_str(&format!(
+            " -> {:15} (commit: {}, protected: {}) \n\t url: {} \n",
+            branch.name.white(),
+            branch.commit.sha.bright_green(),
+            (branch.protected.to_string()).red(),
+            branch.commit.url
+        ));
     }
-    
+
+    output
+}
+
+pub fn get_info_from_commits(commits: &Vec<CommitInfo>) -> String {
+    let mut output = "\n".to_owned();
+
+    output.push_str(&format!("Commits ({}) \n", commits.len()));
+    for commit in commits {
+        let indented_message = commit
+            .commit
+            .message
+            .lines()
+            .map(|line| format!("\t {}", line.white()))
+            .collect::<Vec<_>>()
+            .join("\n");
+
+        output.push_str(&format!(
+            " \n -> author: {}, date: {} \n\t message: {} \n\t sha: {} \n",
+            commit.commit.author.email.blue(),
+            commit.commit.author.date.yellow(),
+            indented_message,
+            commit.sha.bright_green(),
+        ));
+    }
+
     output
 }

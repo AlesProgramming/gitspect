@@ -32,6 +32,20 @@ pub enum Commands {
         open: String,
     },
 
+    #[clap(aliases = &["commit", "cm"])]
+    Commits {
+        owner: String,
+        repo_name: String,
+        #[clap(long, default_value_t = 30, value_name = "AMOUNT PER PAGE")]
+        per_page: i32,
+        #[clap(long, default_value_t = 1, value_name = "PAGE #")]
+        page: i32,
+        #[clap(long, default_value_t = String::from("main"), value_name = "BRANCH NAME")]
+        branch: String,
+        #[clap(long, default_value_t = String::new(), value_name = "COMMIT AUTHOR'S EMAIL")]
+        author: String,
+    },
+
     #[clap(aliases = &["cls"])]
     Clear {},
 

@@ -7,44 +7,26 @@ pub fn print_custom_help() {
     println!("  {:<12}{}", "stats".bold(), "Show repository statistics");
     println!("  {:<12}  {}", "", "<owner> <repo_name>".italic().dimmed());
 
-    println!(
-        "  {:<12}{}",
-        "read-me".bold(),
-        "Display repository's README"
-    );
+    println!("  {:<12}{}", "read-me".bold(), "Display repository's README");
     println!("  {:<12}  {}", "", "<owner> <repo_name>".italic().dimmed());
 
-    println!(
-        "  {:<12}{}",
-        "lang".bold(),
-        "List languages used in the repository"
-    );
+    println!("  {:<12}{}", "lang".bold(), "List languages used in the repository");
     println!("  {:<12}  {}", "", "<owner> <repo_name>".italic().dimmed());
 
-    println!(
-        "  {:<12}{}",
-        "branches".bold(),
-        "List branches with optional filters"
-    );
+    println!("  {:<12}{}", "branches".bold(), "List branches with optional filters");
     println!("  {:<12}  {}", "", "<owner> <repo_name>".italic().dimmed());
-    println!(
-        "  {:<12}  {}",
-        "",
-        "--per-page <AMOUNT> (default: 30)".italic().dimmed()
-    );
-    println!(
-        "  {:<12}  {}",
-        "",
-        "--page <PAGE #> (default: 1)".italic().dimmed()
-    );
-    println!(
-        "  {:<12}  {}",
-        "",
-        "--open <BRANCH NAME> (optional)".italic().dimmed()
-    );
+    println!("  {:<12}  {}", "", "--per-page <AMOUNT> (default: 30)".italic().dimmed());
+    println!("  {:<12}  {}", "", "--page <PAGE #> (default: 1)".italic().dimmed());
+    println!("  {:<12}  {}", "", "--open <BRANCH NAME> (optional)".italic().dimmed());
+    
+    println!("  {:<12}{}", "commits".bold(), "Show commit history with filters");
+    println!("  {:<12}  {}", "", "<owner> <repo_name>".italic().dimmed());
+    println!("  {:<12}  {}", "", "--per-page <AMOUNT PER PAGE> (default: 30)".italic().dimmed());
+    println!("  {:<12}  {}", "", "--page <PAGE #> (default: 1)".italic().dimmed());
+    println!("  {:<12}  {}", "", "--branch <BRANCH NAME> (default: main)".italic().dimmed());
+    println!("  {:<12}  {}", "", "--author <COMMIT AUTHOR> (optional)".italic().dimmed());
 
     println!("  {:<12}{}", "clear".bold(), "Clear the screen");
-
     println!("  {:<12}{}", "help".bold(), "Show this help message");
 
     println!("\n{}", "Options:".underline());

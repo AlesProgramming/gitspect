@@ -5,9 +5,9 @@ mod utils;
 
 use crate::subcommands::Commands;
 use clap::Parser;
+use clearscreen;
 use colored::*;
 use dotenv::dotenv;
-use clearscreen;
 use std::{
     env,
     io::{self, Write},
@@ -90,16 +90,35 @@ async fn main() {
                     )
                     .await;
                 }
+                Commands::Commits {
+                    owner,
+                    repo_name,
+                    per_page,
+                    page,
+                    branch,
+                    author,
+                } => {
+                    commands::commits::get_commits(
+                        &owner,
+                        &repo_name,
+                        &github_token,
+                        &per_page,
+                        &page,
+                        &branch,
+                        &author,
+                    )
+                    .await;
+                }
                 Commands::Clear {} => {
                     clearscreen::clear().unwrap();
                     print_banner();
                 }
-                Commands::Help {  } => {
+                Commands::Help {} => {
                     commands::help::print_custom_help();
                 }
             },
-            Err(e) => {
-                println!("Error: {}", e);
+            Err(_e) => {
+                println!("\tAin't a command, partner!");
             }
         }
     }
@@ -108,6 +127,6 @@ async fn main() {
     println!("\n {} \n", farewell_text);
 }
 
-fn print_banner(){
+fn print_banner() {
     println!("{}", BANNER);
 }

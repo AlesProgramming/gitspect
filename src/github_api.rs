@@ -44,6 +44,50 @@ pub struct Branch {
     pub protected: bool,
 }
 
+#[derive(Debug, Deserialize)]
+#[allow(unused)]
+pub struct CommitInfo {
+    pub sha: String,
+    pub commit: Commit,
+    pub author: Option<User>,
+    pub committer: Option<User>,
+    pub verification: Option<Verification>,
+}
+
+#[derive(Debug, Deserialize)]
+#[allow(unused)]
+pub struct Commit {
+    pub author: CommitAuthor,
+    pub committer: CommitAuthor,
+    pub message: String,
+}
+
+#[derive(Debug, Deserialize)]
+#[allow(unused)]
+pub struct CommitAuthor {
+    pub name: String,
+    pub email: String,
+    pub date: String,
+}
+
+#[derive(Debug, Deserialize)]
+#[allow(unused)]
+pub struct User {
+    pub login: String,
+    pub id: u64,
+    pub avatar_url: String,
+    pub html_url: String,
+}
+
+#[derive(Debug, Deserialize)]
+#[allow(unused)]
+pub struct Verification {
+    pub verified: bool,
+    pub reason: String,
+    pub signature: Option<String>,
+    pub payload: Option<String>,
+}
+
 pub struct GitHubClient {
     client: reqwest::Client,
     token: Option<String>,
@@ -126,6 +170,31 @@ impl GitHubClient {
             "https://api.github.com/repos/{}/{}/branches?per_page={}&page={}",
             owner, repo, per_page, page
         );
+        self.get_json(&url).await
+    }
+
+    pub async fn get_commits(
+        &self,
+        owner: &str,
+        repo: &str,
+        per_page: &i32,
+        page: &i32,
+        branch: &str,
+        author: &str,
+    ) -> Result<Vec<CommitInfo>, Box<dyn Error>> {
+        let url: String = if author.is_empty() {
+            format!(
+                "https://api.github.com/repos/{}/{}/commits?sha={}&per_page={}&page={}",
+                owner, repo, branch, per_page, page
+            )
+        } else {
+            format!(
+                "https://api.github.com/repos/{}/{}/commits?sha={}&author={}&per_page={}&page={}
+",
+                owner, repo, branch, author, per_page, page
+            )
+        };
+        
         self.get_json(&url).await
     }
 }
