@@ -7,7 +7,7 @@ pub async fn get_stats(owner: &str, repo_name: &str, github_token: &str) {
 
     match client.fetch_stats(&owner, &repo_name).await {
         Ok(stats) => {
-            let response = utils::format_stats_struct(&stats);
+            let response = utils::formatting::format_stats_struct(&stats);
             print!("{}", response);
         }
         Err(e) => {

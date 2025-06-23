@@ -22,7 +22,9 @@ pub async fn get_branches(
                     branch_to_open, owner, repo_name
                 );
 
-                let branch_to_open = branches.iter().find(|branch| branch.name == *branch_to_open);
+                let branch_to_open = branches
+                    .iter()
+                    .find(|branch| branch.name == *branch_to_open);
                 match branch_to_open {
                     Some(branch) => {
                         let _ = open::that(format!(
@@ -41,7 +43,7 @@ pub async fn get_branches(
                     per_page, page, owner, repo_name
                 );
 
-                let text = utils::get_info_from_branches(&branches);
+                let text = utils::info_display::get_info_from_branches(&branches);
                 println!("{}", text);
             }
         },

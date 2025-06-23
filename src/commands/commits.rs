@@ -26,7 +26,7 @@ pub async fn get_commits(
         .await
     {
         Ok(commits) => {
-            let response = utils::get_info_from_commits(&commits);
+            let response = utils::info_display::get_info_from_commits(&commits);
             print!("{}", response);
         }
         Err(e) => {

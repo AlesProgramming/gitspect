@@ -10,7 +10,7 @@ pub async fn get_langs(owner: &str, repo_name: &str, github_token: &str) {
 
     match client.get_langs(owner, repo_name).await {
         Ok(lang_hash) => {
-            let text = utils::get_percentages_from_lang_hashmap(&lang_hash);
+            let text = utils::formatting::get_percentages_from_lang_hashmap(&lang_hash);
             println!("{}", text);
         }
         Err(e) => {

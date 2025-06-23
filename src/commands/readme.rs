@@ -10,7 +10,7 @@ pub async fn get_readme(owner: &str, repo_name: &str, github_token: &str) {
 
     match client.fetch_readme(owner, repo_name).await {
         Ok(file) => {
-            let text = utils::parse_github_file_to_readme_text(&file);
+            let text = utils::parsing::parse_github_file_to_readme_text(&file);
             println!("{}", text);
         },
         Err(e) => {

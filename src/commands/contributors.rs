@@ -10,7 +10,7 @@ pub async fn get_contributors(owner: &str, repo_name: &str, github_token: &str, 
 
     match client.get_contributors(owner, repo_name, per_page, page).await {
         Ok(contributors_list) => {
-            let text = utils::get_info_from_contributors(&contributors_list);
+            let text = utils::info_display::get_info_from_contributors(&contributors_list);
             println!("{}", text);
         }
         Err(e) => {
