@@ -79,10 +79,7 @@ pub fn get_percentages_from_lang_hashmap(langs: &HashMap<String, u32>) -> String
     let mut output = "\n".to_owned();
 
     for (lang, percent) in &sorted_order {
-        output.push_str(
-            &(format!("{}: {:.5}%", lang.cyan(), *percent * 100.0)
-                + &format!(" [{} bytes] \n", langs[*lang])),
-        );
+        output.push_str(&(format!("\t {}: {:.5}% [{} bytes] \n", lang.cyan(), *percent * 100.0, langs[*lang])));
     }
 
     output
