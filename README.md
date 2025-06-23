@@ -42,3 +42,4 @@ GITHUB_TOKEN=your_personal_access_token_here
 
 - Generated README.md
 - Generated help command
+- Helped with converting JSON to Rust structs
