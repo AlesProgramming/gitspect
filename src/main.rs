@@ -1,8 +1,8 @@
 mod commands;
 mod github_api;
+mod schemas;
 mod subcommands;
 mod utils;
-mod schemas;
 
 use crate::subcommands::Commands;
 use clap::Parser;
@@ -109,6 +109,13 @@ async fn main() {
                         &author,
                     )
                     .await;
+                }
+                Commands::Contributors {owner,repo_name, per_page, page } => {
+                    commands::contributors::get_contributors(&owner, &repo_name, &github_token, &per_page, &page)
+                        .await;
+                }
+                Commands::Open { name } => {
+                    commands::open::open_github(&name);
                 }
                 Commands::Clear {} => {
                     clearscreen::clear().unwrap();

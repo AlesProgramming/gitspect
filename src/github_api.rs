@@ -111,7 +111,21 @@ impl GitHubClient {
                 owner, repo, branch, author, per_page, page
             )
         };
-        
+
+        self.get_json(&url).await
+    }
+
+    pub async fn get_contributors(
+        &self,
+        owner: &str,
+        repo: &str,
+        per_page: &i32,
+        page: &i32
+    ) -> Result<Vec<Contributor>, Box<dyn Error>> {
+        let url: String = format!(
+            "https://api.github.com/repos/{}/{}/contributors?page={}&per_page={}",
+            owner, repo, page, per_page
+        );
         self.get_json(&url).await
     }
 }
