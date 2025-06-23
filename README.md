@@ -38,7 +38,7 @@ Create a file named `.env` in the project root containing your classic GitHub Pe
 GITHUB_TOKEN=your_personal_access_token_here
 ```
 
-## AI USE
+## AI Use
 
 - Generated README.md
 - Generated help command
