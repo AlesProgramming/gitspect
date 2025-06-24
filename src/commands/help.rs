@@ -20,10 +20,9 @@ pub fn print_custom_help() {
     println!("  {:<14}  {}", "", "--open <BRANCH NAME> (optional)".italic().dimmed());
     
     println!("  {:<14}{}", "commits".bold(), "Show commit history with filters");
-    println!("  {:<14}  {}", "", "<owner> <repo_name>".italic().dimmed());
+    println!("  {:<14}  {}", "", "<owner> <repo_name> <branch>".italic().dimmed());
     println!("  {:<14}  {}", "", "--per-page <AMOUNT PER PAGE> (default: 30)".italic().dimmed());
     println!("  {:<14}  {}", "", "--page <PAGE #> (default: 1)".italic().dimmed());
-    println!("  {:<14}  {}", "", "--branch <BRANCH NAME> (default: main)".italic().dimmed());
     println!("  {:<14}  {}", "", "--author <COMMIT AUTHOR> (optional)".italic().dimmed());
 
     println!("  {:<14}{}", "contributors".bold(), "Show contributors to the repository");
