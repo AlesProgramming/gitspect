@@ -17,7 +17,8 @@
 A command-line tool to fetch and display GitHub repository data like branches, stats, and languages.
 
 ## Features
-
+- **setkey**: Edit GitHub API key
+- **viewkey**: View GitHub API key
 - **stats**: Show repository statistics  
 - **read-me**: Display repository's README file  
 - **lang**: List programming languages used in the repository  
