@@ -43,7 +43,7 @@ struct Cli {
 #[tokio::main]
 async fn main() {
     dotenv().ok();
-    let github_token = env::var("GITHUB_TOKEN").unwrap_or_default();
+    let mut github_token = env::var("GITHUB_TOKEN").unwrap_or_default();
 
     print_banner();
 
@@ -110,9 +110,20 @@ async fn main() {
                     )
                     .await;
                 }
-                Commands::Contributors {owner,repo_name, per_page, page } => {
-                    commands::contributors::get_contributors(&owner, &repo_name, &github_token, &per_page, &page)
-                        .await;
+                Commands::Contributors {
+                    owner,
+                    repo_name,
+                    per_page,
+                    page,
+                } => {
+                    commands::contributors::get_contributors(
+                        &owner,
+                        &repo_name,
+                        &github_token,
+                        &per_page,
+                        &page,
+                    )
+                    .await;
                 }
                 Commands::Open { name } => {
                     commands::open::open_github(&name);
@@ -123,6 +134,13 @@ async fn main() {
                 }
                 Commands::Help {} => {
                     commands::help::print_custom_help();
+                }
+                Commands::Setkey { key } => {
+                    commands::key::update_key(&key).await;
+                    github_token = env::var("GITHUB_TOKEN").unwrap();
+                }
+                Commands::Viewkey {} => {
+                    commands::key::view_key().await;
                 }
             },
             Err(_e) => {

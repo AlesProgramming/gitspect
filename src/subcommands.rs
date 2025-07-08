@@ -2,6 +2,14 @@ use clap::Subcommand;
 
 #[derive(Subcommand, Clone)]
 pub enum Commands {
+    #[clap(aliases = &["showkey", "revealkey"])]
+    Viewkey {},
+    
+    #[clap(aliases = &["newkey", "updatekey"])]
+    Setkey {
+        key: String
+    },
+
     #[clap(aliases = &["statistics", "stat"])]
     Stats {
         owner: String,

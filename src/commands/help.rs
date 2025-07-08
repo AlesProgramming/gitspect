@@ -1,8 +1,12 @@
 use colored::*;
 
 pub fn print_custom_help() {
-    println!("\n");
     println!("{}", "Commands:".underline());
+
+    println!("  {:<14}{}", "viewkey".bold(), "View the stored GitHub API key");
+
+    println!("  {:<14}{}", "setkey".bold(), "Set or update your GitHub API key");
+    println!("  {:<14}  {}", "", "<key>".italic().dimmed());
 
     println!("  {:<14}{}", "stats".bold(), "Show repository statistics");
     println!("  {:<14}  {}", "", "<owner> <repo_name>".italic().dimmed());

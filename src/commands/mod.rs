@@ -6,3 +6,4 @@ pub(crate) mod help;
 pub(crate) mod commits;
 pub(crate) mod contributors;
 pub(crate) mod open;
+pub(crate) mod key;
