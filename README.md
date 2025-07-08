@@ -39,6 +39,10 @@ Add your token manually to the `.env` file in the project root:
 GITHUB_TOKEN=your_personal_access_token_here
 ```
 
+## Preview
+
+https://github.com/user-attachments/assets/af831b4b-3634-41ed-ae4b-16409a723f89
+
 ## AI Use
 
 - Generated README.md
