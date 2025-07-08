@@ -55,3 +55,8 @@ https://github.com/user-attachments/assets/af831b4b-3634-41ed-ae4b-16409a723f89
 - Generated README.md
 - Generated help command
 - Helped with converting JSON to Rust structs
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
