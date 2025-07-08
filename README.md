@@ -30,9 +30,11 @@ A command-line tool to fetch and display GitHub repository data like branches, s
 
 ## Configuration
 
-Add your classic GitHub Personal Access Token with public repo access to the `.env`  file in the project root
+Use the **`setkey`** command to add your classic GitHub Personal Access Token (with access to public repositories).  
+&nbsp;&nbsp;&nbsp;&nbsp;**or**  
+Add your token manually to the `.env` file in the project root:
 
-```text
+```env
 GITHUB_TOKEN=your_personal_access_token_here
 ```
 
