@@ -17,7 +17,8 @@
 A command-line tool to fetch and display GitHub repository data like branches, stats, and languages.
 
 ## Features
-
+- **setkey**: Edit GitHub API key
+- **viewkey**: View GitHub API key
 - **stats**: Show repository statistics  
 - **read-me**: Display repository's README file  
 - **lang**: List programming languages used in the repository  
@@ -38,8 +39,24 @@ Add your token manually to the `.env` file in the project root:
 GITHUB_TOKEN=your_personal_access_token_here
 ```
 
+> **Note:** If you clone the project and manually edit the `.env` file, you must rebuild the project using Cargo.
+> Make sure you have [Rust](https://www.rust-lang.org/tools/install) and Cargo installed:
+>
+> ```bash
+> cargo build
+> ```
+
+## Preview
+
+https://github.com/user-attachments/assets/af831b4b-3634-41ed-ae4b-16409a723f89
+
 ## AI Use
 
 - Generated README.md
 - Generated help command
 - Helped with converting JSON to Rust structs
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
