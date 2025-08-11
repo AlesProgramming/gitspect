@@ -143,8 +143,8 @@ async fn main() {
                     commands::key::view_key().await;
                 }
             },
-            Err(_e) => {
-                println!("\tAin't a command, partner!");
+            Err(e) => {
+                println!("\tAin't a command, partner! \n \t -> {}", e);
             }
         }
     }
