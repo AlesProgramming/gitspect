@@ -3,7 +3,7 @@ use serde::Deserialize;
 #[derive(Debug, Deserialize)]
 pub struct RepoStats {
     pub full_name: String,
-    pub description: String,
+    pub description: Option<String>,
     pub stargazers_count: u64,
     pub forks_count: u64,
     pub open_issues_count: u64,
@@ -14,6 +14,7 @@ pub struct RepoStats {
     pub updated_at: String,
     pub pushed_at: String,
 }
+
 
 #[derive(Debug, Deserialize)]
 #[allow(unused)]

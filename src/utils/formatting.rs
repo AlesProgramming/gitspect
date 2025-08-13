@@ -21,7 +21,7 @@ pub fn format_stats_struct(stats: &RepoStats) -> String {
         "Repository:".bold().blue(),
         stats.full_name,
         "Description:".bold().blue(),
-        stats.description,
+        stats.description.as_deref().unwrap_or("N/A"),
         "Stars:".bold().green(),
         stats.stargazers_count,
         "Forks:".bold().green(),

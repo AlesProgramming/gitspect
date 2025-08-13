@@ -48,7 +48,7 @@ impl GitHubClient {
             .send()
             .await?
             .error_for_status()?;
-
+        
         let json = resp.json::<T>().await?;
         Ok(json)
     }
